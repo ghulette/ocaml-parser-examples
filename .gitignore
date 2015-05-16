@@ -1,0 +1,5 @@
+test
+._d/
+*.cmi
+*.cmx
+*.o
