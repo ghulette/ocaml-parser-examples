@@ -1,5 +1,8 @@
 test
+parser.ml
+parser.mli
 ._d/
+._ncdi/
 *.cmi
 *.cmx
 *.o
