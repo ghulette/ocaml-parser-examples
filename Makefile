@@ -1,5 +1,5 @@
-SOURCES = expr.ml tokenizer.ml parser.mly
-RESULT = test
+SOURCES = expr.mli expr.ml tokenizer.ml parser.mly main.ml
+RESULT = fobl
 PACKS = sedlex
 
 OCAMLYACC = menhir

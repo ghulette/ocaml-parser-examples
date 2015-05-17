@@ -28,7 +28,3 @@ let rec token buf =
      let tok = Sedlexing.Utf8.lexeme buf in
      failwith ("Unexpected character: " ^ tok)
   | _ -> failwith "Lexing error"
-
-let () =
-  let lexbuf = Sedlexing.Utf8.from_channel stdin in
-  token lexbuf
