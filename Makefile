@@ -1,9 +1,9 @@
-SOURCES = expr.mli expr.ml tokenizer.ml parser.mly main.ml
+SOURCES = expr.mli expr.ml parser.mly lexer.ml main.ml
 RESULT = fobl
-PACKS = sedlex
+PACKS = sedlex menhirLib
 
 OCAMLYACC = menhir
 
-all : native-code
+all : byte-code native-code
 
 include OCamlMakefile

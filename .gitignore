@@ -1,8 +1,10 @@
-test
+fobl
 parser.ml
 parser.mli
 ._d/
 ._ncdi/
+._bcdi/
 *.cmi
+*.cmo
 *.cmx
 *.o
