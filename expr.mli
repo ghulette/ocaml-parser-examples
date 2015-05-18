@@ -11,3 +11,4 @@ type t =
   | Exists of string * t
 
 val eval : t -> bool
+val to_string : t -> string

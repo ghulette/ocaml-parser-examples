@@ -36,3 +36,17 @@ let eval e =
        e1 || e2
   in
   eval_aux empty e
+
+let rec to_string =
+  let parens s = "(" ^ s ^ ")" in
+  function
+  | True -> "TRUE"
+  | False -> "FALSE"
+  | Var x -> x
+  | Neg e -> "~" ^ to_string e |> parens
+  | Conj (e1, e2) -> to_string e1 ^ " /\\ " ^ to_string e2 |> parens
+  | Disj (e1, e2) -> to_string e1 ^ " \\/ " ^ to_string e2 |> parens
+  | Impl (e1, e2) -> to_string e1 ^ " => " ^ to_string e2 |> parens
+  | Equiv (e1, e2) -> to_string e1 ^ " <=> " ^ to_string e2 |> parens
+  | Forall (x, e) -> "FORALL " ^ x ^ " : " ^ to_string e |> parens
+  | Exists (x, e) -> "EXISTS " ^ x ^ " : " ^ to_string e |> parens
