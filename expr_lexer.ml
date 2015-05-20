@@ -3,7 +3,7 @@ let number  = [%sedlex.regexp? Plus digit]
 let letter  = [%sedlex.regexp? 'a'..'z'|'A'..'Z']
 
 let rec token buf =
-  let open Parser in
+  let open Expr_parser in
   match%sedlex buf with
   | 0x2200 | "FORALL" -> FORALL
   | 0x2203 | "EXISTS" -> EXISTS

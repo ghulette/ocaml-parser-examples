@@ -1,15 +1,9 @@
-type t =
-  | True
-  | False
-  | Var of string
-  | Neg of t
-  | Conj of t * t
-  | Disj of t * t
-  | Impl of t * t
-  | Equiv of t * t
-  | Forall of string * t
-  | Exists of string * t
+open Expr_ast
 
+type t = Expr_ast.t
+
+let to_string = Expr_ast.to_string
+       
 let empty =
   fun x -> failwith ("Undefined variable: " ^ x)
                     
@@ -37,16 +31,22 @@ let eval e =
   in
   eval_aux empty e
 
-let rec to_string =
-  let parens s = "(" ^ s ^ ")" in
-  function
-  | True -> "TRUE"
-  | False -> "FALSE"
-  | Var x -> x
-  | Neg e -> "~" ^ to_string e |> parens
-  | Conj (e1, e2) -> to_string e1 ^ " /\\ " ^ to_string e2 |> parens
-  | Disj (e1, e2) -> to_string e1 ^ " \\/ " ^ to_string e2 |> parens
-  | Impl (e1, e2) -> to_string e1 ^ " => " ^ to_string e2 |> parens
-  | Equiv (e1, e2) -> to_string e1 ^ " <=> " ^ to_string e2 |> parens
-  | Forall (x, e) -> "FORALL " ^ x ^ " : " ^ to_string e |> parens
-  | Exists (x, e) -> "EXISTS " ^ x ^ " : " ^ to_string e |> parens
+let parse fname menhir_parser lexbuf =
+  let open Lexing in
+  let pos = {
+    pos_fname = fname;
+    pos_lnum = 1;
+    pos_bol = 0;
+    pos_cnum = 0
+  } in
+  let lexer () =
+    let tok = Expr_lexer.token lexbuf in (tok, pos, pos)
+  in
+  MenhirLib.Convert.Simplified.traditional2revised menhir_parser lexer
+
+let of_channel ch =
+  try
+    let lexbuf = Sedlexing.Utf8.from_channel stdin in
+    parse "" Expr_parser.main lexbuf
+  with
+    Expr_parser.Error -> exit (-1)

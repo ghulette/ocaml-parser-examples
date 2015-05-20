@@ -1,5 +1,5 @@
 %{
-open Expr
+open Expr_ast
 %}
 
 %token TRUE FALSE
@@ -9,7 +9,7 @@ open Expr
 %token LPAREN RPAREN
 %token EOF
 %token <string> VAR
-%start <Expr.t> main
+%start <Expr_ast.t> main
 
 %%
 
